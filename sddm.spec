@@ -12,6 +12,7 @@ Source11:	%{name}-autologin.pam
 Source12:	tmpfiles-%{name}.conf
 # sample sddm.conf generated with sddm --example-config, and entries commented-out
 Source13:	%{name}.conf
+Source14:	Xsession
 BuildRequires:	cmake
 BuildRequires:	libxcb-devel
 BuildRequires:	pam-devel
@@ -45,7 +46,6 @@ cd build
 %{cmake} \
 		-DBUILD_MAN_PAGES:BOOL=ON \
 		-DENABLE_JOURNALD:BOOL=ON \
-		-DSESSION_COMMAND:PATH=/etc/X11/xinit/Xsession \
 		-DUSE_QT5:BOOL=ON \
 		..
 cd ..
@@ -63,6 +63,7 @@ install -Dpm 644 %{SOURCE10} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/sddm
 install -Dpm 644 %{SOURCE11} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/sddm-autologin
 install -Dpm 644 %{SOURCE12} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/sddm.conf
 install -Dpm 644 %{SOURCE13} $RPM_BUILD_ROOT%{_sysconfdir}/sddm.conf
+install -Dpm 644 %{SOURCE14} $RPM_BUILD_ROOT%{_datadir}/sddm/scripts/Xsession
 install -d $RPM_BUILD_ROOT%{_localstatedir}/run/sddm
 install -d $RPM_BUILD_ROOT%{_localstatedir}/lib/sddm
 
