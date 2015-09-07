@@ -97,13 +97,19 @@ fi
 /etc/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 %attr(755,root,root) %{_bindir}/sddm
 %attr(755,root,root) %{_bindir}/sddm-greeter
-%{_libexecdir}/sddm-helper
+%attr(755,root,root) %{_libexecdir}/sddm-helper
 %{systemdtmpfilesdir}/sddm.conf
 %attr(711, root, sddm) %dir %{_localstatedir}/run/sddm
 %attr(1770, sddm, sddm) %dir %{_localstatedir}/lib/sddm
 %{systemdunitdir}/sddm.service
 %{_libdir}/qt5/qml/SddmComponents/
-%{_datadir}/sddm
+%dir %{_datadir}/sddm
+%{_datadir}/sddm/faces
+%{_datadir}/sddm/flags
+%dir %{_datadir}/sddm/scripts
+%attr(755,root,root) %{_datadir}/sddm/scripts/*
+%{_datadir}/sddm/themes
+%{_datadir}/sddm/translations
 %{_mandir}/man1/sddm.1*
 %{_mandir}/man1/sddm-greeter.1*
 %{_mandir}/man5/sddm.conf.5*
