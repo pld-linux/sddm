@@ -13,12 +13,25 @@ Source12:	tmpfiles-%{name}.conf
 Source13:	%{name}.conf
 Source14:	Xsession
 URL:		https://github.com/sddm/sddm
+BuildRequires:	Qt5Core-devel
+BuildRequires:	Qt5DBus-devel
+BuildRequires:	Qt5Network-devel
+BuildRequires:	Qt5Qml-devel
+BuildRequires:	Qt5Quick-devel
+BuildRequires:	Qt5Test-devel
 BuildRequires:	cmake
+BuildRequires:	docutils
+BuildRequires:	libstdc++-devel
 BuildRequires:	libxcb-devel
 BuildRequires:	pam-devel
+BuildRequires:	pkgconfig
 BuildRequires:	python-docutils
+BuildRequires:	qt5-build
+BuildRequires:	qt5-linguist
+BuildRequires:	qt5-qmake
 BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	systemd-devel
+BuildRequires:	systemd-units
 Provides:	XDM
 Provides:	group(sddm)
 Provides:	service(graphical-login) = sddm
