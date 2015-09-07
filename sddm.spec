@@ -4,7 +4,6 @@ Version:	0.12.0
 Release:	1
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
-URL:		https://github.com/sddm/sddm
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
 # Source0-md5:	e3261ac93a50c71c973cc79b85387765
 Source10:	%{name}.pam
@@ -13,23 +12,26 @@ Source12:	tmpfiles-%{name}.conf
 # sample sddm.conf generated with sddm --example-config, and entries commented-out
 Source13:	%{name}.conf
 Source14:	Xsession
+URL:		https://github.com/sddm/sddm
 BuildRequires:	cmake
 BuildRequires:	libxcb-devel
 BuildRequires:	pam-devel
 BuildRequires:	python-docutils
+BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	systemd-devel
+Provides:	XDM
+Provides:	group(sddm)
+Provides:	service(graphical-login) = sddm
+Provides:	user(sddm)
+Requires(post,preun,postun):	systemd-units >= 38
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires:	xinitrc-ng >= 1.0
-Requires(post,preun,postun):	systemd-units >= 38
 Requires:	systemd-units >= 38
-Provides:	XDM
-Provides:	group(sddm)
-Provides:	service(graphical-login) = sddm
-Provides:	user(sddm)
+Requires:	xinitrc-ng >= 1.0
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 SDDM is a modern display manager for X11 aiming to be fast, simple and
@@ -43,29 +45,24 @@ interfaces.
 %build
 install -d build
 cd build
-%{cmake} \
-		-DBUILD_MAN_PAGES:BOOL=ON \
-		-DENABLE_JOURNALD:BOOL=ON \
-		-DUSE_QT5:BOOL=ON \
-		..
-cd ..
-
-%{__make} -C build
+%cmake \
+	-DBUILD_MAN_PAGES:BOOL=ON \
+	-DENABLE_JOURNALD:BOOL=ON \
+	-DUSE_QT5:BOOL=ON \
+	..
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_localstatedir}/{lib,run}/sddm
+%{__make} -C build install/fast \
+	DESTDIR=$RPM_BUILD_ROOT
 
-%{__make} install/fast \
-	DESTDIR=$RPM_BUILD_ROOT \
-	-C build
-
-install -Dpm 644 %{SOURCE10} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/sddm
-install -Dpm 644 %{SOURCE11} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/sddm-autologin
+install -Dpm 644 %{SOURCE10} $RPM_BUILD_ROOT/etc/pam.d/sddm
+install -Dpm 644 %{SOURCE11} $RPM_BUILD_ROOT/etc/pam.d/sddm-autologin
 install -Dpm 644 %{SOURCE12} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/sddm.conf
 install -Dpm 644 %{SOURCE13} $RPM_BUILD_ROOT%{_sysconfdir}/sddm.conf
 install -Dpm 644 %{SOURCE14} $RPM_BUILD_ROOT%{_datadir}/sddm/scripts/Xsession
-install -d $RPM_BUILD_ROOT%{_localstatedir}/run/sddm
-install -d $RPM_BUILD_ROOT%{_localstatedir}/lib/sddm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
