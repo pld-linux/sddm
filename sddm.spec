@@ -17,7 +17,6 @@ BuildRequires:	libxcb-devel
 BuildRequires:	pam-devel
 BuildRequires:	python-docutils
 BuildRequires:	systemd-devel
-Requires:	xorg-x11-xinit
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
