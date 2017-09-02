@@ -1,11 +1,13 @@
+%define		qtver	5.6.0
+
 Summary:	QML based X11 desktop manager
 Name:		sddm
-Version:	0.12.0
+Version:	0.15.0
 Release:	1
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
-# Source0-md5:	e3261ac93a50c71c973cc79b85387765
+# Source0-md5:	86c9e819d8a438e9f7025da8e40f372e
 Source10:	%{name}.pam
 Source11:	%{name}-autologin.pam
 Source12:	tmpfiles-%{name}.conf
@@ -13,22 +15,23 @@ Source12:	tmpfiles-%{name}.conf
 Source13:	%{name}.conf
 Source14:	Xsession
 URL:		https://github.com/sddm/sddm
-BuildRequires:	Qt5Core-devel
-BuildRequires:	Qt5DBus-devel
-BuildRequires:	Qt5Network-devel
-BuildRequires:	Qt5Qml-devel
-BuildRequires:	Qt5Quick-devel
-BuildRequires:	Qt5Test-devel
-BuildRequires:	cmake
+BuildRequires:	Qt5Core-devel >= %{qtver}
+BuildRequires:	Qt5DBus-devel >= %{qtver}
+BuildRequires:	Qt5Network-devel >= %{qtver}
+BuildRequires:	Qt5Qml-devel >= %{qtver}
+BuildRequires:	Qt5Quick-devel >= %{qtver}
+BuildRequires:	Qt5Test-devel >= %{qtver}
+BuildRequires:	cmake >= 2.8.8
 BuildRequires:	docutils
+BuildRequires:	kf5-extra-cmake-modules
 BuildRequires:	libstdc++-devel
 BuildRequires:	libxcb-devel
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python-docutils
-BuildRequires:	qt5-build
-BuildRequires:	qt5-linguist
-BuildRequires:	qt5-qmake
+BuildRequires:	qt5-build >= %{qtver}
+BuildRequires:	qt5-linguist >= %{qtver}
+BuildRequires:	qt5-qmake >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	systemd-devel
 BuildRequires:	systemd-units
@@ -42,6 +45,11 @@ Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
+Requires:	Qt5Core >= %{qtver}
+Requires:	Qt5DBus >= %{qtver}
+Requires:	Qt5Network >= %{qtver}
+Requires:	Qt5Qml >= %{qtver}
+Requires:	Qt5Quick >= %{qtver}
 Requires:	systemd-units >= 38
 Requires:	xinitrc-ng >= 1.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
