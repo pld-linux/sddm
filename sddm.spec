@@ -2,12 +2,12 @@
 
 Summary:	QML based X11 desktop manager
 Name:		sddm
-Version:	0.15.0
+Version:	0.16.0
 Release:	1
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
-# Source0-md5:	86c9e819d8a438e9f7025da8e40f372e
+# Source0-md5:	8d41b09ff9197b182b093af82e3958d5
 Source10:	%{name}.pam
 Source11:	%{name}-autologin.pam
 Source12:	tmpfiles-%{name}.conf
