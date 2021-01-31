@@ -1,13 +1,13 @@
-%define		qtver	5.6.0
+%define		qtver	5.8.0
 
 Summary:	QML based X11 desktop manager
 Name:		sddm
-Version:	0.18.1
+Version:	0.19.0
 Release:	1
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
-# Source0-md5:	1bc7dcf75ddc53c2030155607e42f6c6
+# Source0-md5:	2e3268a30531d6ae98f02cbf3772fea1
 Source10:	%{name}.pam
 Source11:	%{name}-autologin.pam
 Source12:	tmpfiles-%{name}.conf
@@ -17,6 +17,7 @@ Source14:	Xsession
 URL:		https://github.com/sddm/sddm
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel >= %{qtver}
+BuildRequires:	Qt5Gui-devel >= %{qtver}
 BuildRequires:	Qt5Network-devel >= %{qtver}
 BuildRequires:	Qt5Qml-devel >= %{qtver}
 BuildRequires:	Qt5Quick-devel >= %{qtver}
@@ -33,7 +34,7 @@ BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	qt5-linguist >= %{qtver}
 BuildRequires:	qt5-qmake >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.202
-BuildRequires:	systemd-devel
+BuildRequires:	systemd-devel >= 209
 BuildRequires:	systemd-units
 Provides:	XDM
 Provides:	group(sddm)
