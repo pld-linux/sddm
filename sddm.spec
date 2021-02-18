@@ -3,11 +3,12 @@
 Summary:	QML based X11 desktop manager
 Name:		sddm
 Version:	0.19.0
-Release:	1
+Release:	2
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
 # Source0-md5:	2e3268a30531d6ae98f02cbf3772fea1
+Source1:	wayland-session
 Source10:	%{name}.pam
 Source11:	%{name}-autologin.pam
 Source12:	tmpfiles-%{name}.conf
@@ -85,6 +86,7 @@ install -Dpm 644 %{SOURCE11} $RPM_BUILD_ROOT/etc/pam.d/sddm-autologin
 install -Dpm 644 %{SOURCE12} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/sddm.conf
 install -Dpm 644 %{SOURCE13} $RPM_BUILD_ROOT%{_sysconfdir}/sddm.conf
 install -Dpm 644 %{SOURCE14} $RPM_BUILD_ROOT%{_datadir}/sddm/scripts/Xsession
+install -Dpm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/sddm/scripts/wayland-session
 
 %clean
 rm -rf $RPM_BUILD_ROOT
