@@ -3,7 +3,7 @@
 Summary:	QML based X11 desktop manager
 Name:		sddm
 Version:	0.19.0
-Release:	2
+Release:	3
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
@@ -99,6 +99,8 @@ rm -rf $RPM_BUILD_ROOT
 %systemd_preun sddm.service
 
 %post
+#skip restarting as it would otherise terminate all sessions opened from sddm!
+NORESTART=1
 %systemd_post sddm.service
 
 %postun
