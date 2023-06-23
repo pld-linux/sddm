@@ -78,7 +78,10 @@ cd build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_localstatedir}/{lib,run}/sddm
+install -d $RPM_BUILD_ROOT%{_localstatedir}/{lib,run}/sddm \
+	$RPM_BUILD_ROOT%{_sysconfdir}/sddm.conf.d \
+	$RPM_BUILD_ROOT%{_prefix}/lib/sddm.conf.d
+
 %{__make} -C build install/fast \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -115,6 +118,7 @@ fi
 %defattr(644,root,root,755)
 %doc README.md CONTRIBUTORS
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/sddm.conf
+%dir %{_sysconfdir}/sddm.conf.d
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/sddm
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/sddm-autologin
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/sddm-greeter
@@ -122,6 +126,7 @@ fi
 /etc/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 %attr(755,root,root) %{_bindir}/sddm
 %attr(755,root,root) %{_bindir}/sddm-greeter
+%dir %{_prefix}/lib/sddm.conf.d
 %attr(755,root,root) %{_libexecdir}/sddm-helper
 %attr(755,root,root) %{_libexecdir}/sddm-helper-start-wayland
 %attr(755,root,root) %{_libexecdir}/sddm-helper-start-x11user
