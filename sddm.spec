@@ -55,6 +55,7 @@ Requires:	Qt5Qml >= %{qtver}
 Requires:	Qt5Quick >= %{qtver}
 Requires:	systemd-units >= 38
 Requires:	xinitrc-ng >= 1.0
+Suggests:	weston
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
