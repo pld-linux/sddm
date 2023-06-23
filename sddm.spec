@@ -35,7 +35,7 @@ BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	qt5-linguist >= %{qtver}
 BuildRequires:	qt5-qmake >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.605
-BuildRequires:	systemd-devel >= 209
+BuildRequires:	systemd-devel >= 1:209
 BuildRequires:	systemd-units
 Provides:	XDM
 Provides:	group(sddm)
