@@ -1,13 +1,13 @@
-%define		qtver	5.8.0
+%define		qtver	5.15.0
 
 Summary:	QML based X11 desktop manager
 Name:		sddm
-Version:	0.19.0
-Release:	3
+Version:	0.20.0
+Release:	1
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
-# Source0-md5:	2e3268a30531d6ae98f02cbf3772fea1
+# Source0-md5:	7af67d5fb767639861d35c80eb4e1191
 Source1:	wayland-session
 Source10:	%{name}.pam
 Source11:	%{name}-autologin.pam
@@ -23,10 +23,10 @@ BuildRequires:	Qt5Network-devel >= %{qtver}
 BuildRequires:	Qt5Qml-devel >= %{qtver}
 BuildRequires:	Qt5Quick-devel >= %{qtver}
 BuildRequires:	Qt5Test-devel >= %{qtver}
-BuildRequires:	cmake >= 2.8.8
+BuildRequires:	cmake >= 3.4
 BuildRequires:	docutils
 BuildRequires:	kf5-extra-cmake-modules
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:9
 BuildRequires:	libxcb-devel
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig
@@ -37,6 +37,7 @@ BuildRequires:	qt5-qmake >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	systemd-devel >= 1:209
 BuildRequires:	systemd-units
+BuildRequires:	xorg-lib-libXau-devel
 Provides:	XDM
 Provides:	group(sddm)
 Provides:	service(graphical-login) = sddm
@@ -122,6 +123,8 @@ fi
 %attr(755,root,root) %{_bindir}/sddm
 %attr(755,root,root) %{_bindir}/sddm-greeter
 %attr(755,root,root) %{_libexecdir}/sddm-helper
+%attr(755,root,root) %{_libexecdir}/sddm-helper-start-wayland
+%attr(755,root,root) %{_libexecdir}/sddm-helper-start-x11user
 %{systemdtmpfilesdir}/sddm.conf
 %attr(711, root, sddm) %dir %{_localstatedir}/run/sddm
 %attr(1770, sddm, sddm) %dir %{_localstatedir}/lib/sddm
