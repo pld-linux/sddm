@@ -2,12 +2,12 @@
 
 Summary:	QML based X11 desktop manager
 Name:		sddm
-Version:	0.20.0
+Version:	0.21.0
 Release:	1
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
-# Source0-md5:	7af67d5fb767639861d35c80eb4e1191
+# Source0-md5:	e32a35c282d9be3360737eefbe25b5fa
 Source1:	wayland-session
 Source10:	%{name}.pam
 Source11:	%{name}-autologin.pam
@@ -123,8 +123,6 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/sddm
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/sddm-autologin
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/sddm-greeter
-# it's under %{_sysconfdir}, sure, but it's not a config file
-/etc/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 %attr(755,root,root) %{_bindir}/sddm
 %attr(755,root,root) %{_bindir}/sddm-greeter
 %dir %{_prefix}/lib/sddm.conf.d
@@ -136,13 +134,14 @@ fi
 %attr(1770, sddm, sddm) %dir %{_localstatedir}/lib/sddm
 %{systemdunitdir}/sddm.service
 %{_libdir}/qt5/qml/SddmComponents/
+%{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 %dir %{_datadir}/sddm
 %{_datadir}/sddm/faces
 %{_datadir}/sddm/flags
 %dir %{_datadir}/sddm/scripts
 %attr(755,root,root) %{_datadir}/sddm/scripts/*
 %{_datadir}/sddm/themes
-%{_datadir}/sddm/translations
+%{_datadir}/sddm/translations-qt5
 %{_mandir}/man1/sddm.1*
 %{_mandir}/man1/sddm-greeter.1*
 %{_mandir}/man5/sddm.conf.5*
