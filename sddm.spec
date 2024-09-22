@@ -3,18 +3,19 @@
 Summary:	QML based X11 desktop manager
 Name:		sddm
 Version:	0.21.0
-Release:	1
+Release:	2
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
+#Source0:	https://github.com/sddm/sddm/archive/v%{version}/%{name}-%version}.tar.gz
 Source0:	https://github.com/sddm/sddm/archive/v%{version}.tar.gz
 # Source0-md5:	e32a35c282d9be3360737eefbe25b5fa
-Source1:	wayland-session
 Source10:	%{name}.pam
 Source11:	%{name}-autologin.pam
 Source12:	tmpfiles-%{name}.conf
 # sample sddm.conf generated with sddm --example-config, and entries commented-out
 Source13:	%{name}.conf
-Source14:	Xsession
+Patch0:		always-load-profile.patch
+Patch1:		no-display-manager-alias.patch
 URL:		https://github.com/sddm/sddm
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel >= %{qtver}
@@ -55,6 +56,7 @@ Requires:	Qt5Qml >= %{qtver}
 Requires:	Qt5Quick >= %{qtver}
 Requires:	systemd-units >= 38
 Requires:	xinitrc-ng >= 1.0
+Recommends:	Qt5VirtualKeyboard
 Suggests:	weston
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -66,15 +68,19 @@ interfaces.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 install -d build
 cd build
-%cmake \
+%cmake ../ \
+	-DSESSION_COMMAND:PATH=/etc/X11/xinit/xinitrc \
 	-DBUILD_MAN_PAGES:BOOL=ON \
 	-DENABLE_JOURNALD:BOOL=ON \
-	-DUSE_QT5:BOOL=ON \
-	..
+	-DBUILD_WITH_QT6:BOOL=OFF \
+	-DBUILD_MAN_PAGES:BOOL=ON
+
 %{__make}
 
 %install
@@ -90,8 +96,6 @@ install -Dpm 644 %{SOURCE10} $RPM_BUILD_ROOT/etc/pam.d/sddm
 install -Dpm 644 %{SOURCE11} $RPM_BUILD_ROOT/etc/pam.d/sddm-autologin
 install -Dpm 644 %{SOURCE12} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/sddm.conf
 install -Dpm 644 %{SOURCE13} $RPM_BUILD_ROOT%{_sysconfdir}/sddm.conf
-install -Dpm 644 %{SOURCE14} $RPM_BUILD_ROOT%{_datadir}/sddm/scripts/Xsession
-install -Dpm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/sddm/scripts/wayland-session
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -134,6 +138,7 @@ fi
 %attr(1770, sddm, sddm) %dir %{_localstatedir}/lib/sddm
 %{systemdunitdir}/sddm.service
 %{_libdir}/qt5/qml/SddmComponents/
+%{_prefix}/lib/sysusers.d/sddm.conf
 %{_datadir}/dbus-1/system.d/org.freedesktop.DisplayManager.conf
 %dir %{_datadir}/sddm
 %{_datadir}/sddm/faces
