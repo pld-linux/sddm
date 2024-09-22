@@ -1,0 +1,10 @@
+--- sddm-0.21.0/services/sddm.service.in~	2024-02-26 11:23:03.000000000 +0100
++++ sddm-0.21.0/services/sddm.service.in	2024-09-22 00:57:29.364482699 +0200
+@@ -10,7 +10,3 @@
+ [Service]
+ ExecStart=@CMAKE_INSTALL_FULL_BINDIR@/sddm
+ Restart=always
+-
+-[Install]
+-Alias=display-manager.service
+-
