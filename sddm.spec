@@ -3,7 +3,7 @@
 Summary:	QML based X11 desktop manager
 Name:		sddm
 Version:	0.21.0
-Release:	2
+Release:	3
 License:	GPLv2+ and CC-BY-SA
 Group:		X11/Applications
 #Source0:	https://github.com/sddm/sddm/archive/v%{version}/%{name}-%version}.tar.gz
@@ -57,6 +57,7 @@ Requires:	Qt5Quick >= %{qtver}
 Requires:	systemd-units >= 38
 Requires:	xinitrc-ng >= 1.0
 Recommends:	Qt5VirtualKeyboard
+Suggests:	Qt5WaylandCompositor
 Suggests:	weston
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
